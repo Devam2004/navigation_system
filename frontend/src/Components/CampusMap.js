@@ -1,0 +1,126 @@
+import React, { useState, useEffect } from 'react';
+import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+import 'leaflet-routing-machine';
+import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
+import axios from 'axios';
+import MapMarker from './MapMarker';
+
+const locations = [
+  { name: 'E Block', coords: [23.155484090902153, 72.66443198731419] },
+  { name: 'F Block', coords: [23.15555459881238, 72.66352980335378] },
+  { name: 'D Block', coords: [23.155451201666224, 72.66561961674674] },
+  { name: 'C Block', coords: [23.154732918877396, 72.66687090740923] },
+  { name: 'Mess', coords: [23.15710418558723, 72.6660361248536] },
+  { name: 'Girls Hostel', coords: [23.15687477975353, 72.66676745431035] },
+  { name: 'E ground', coords: [23.156513820935235, 72.66513130541756] }
+];
+
+const pdeuCoords = [23.15637, 72.66509];
+
+const Routing = ({ from, to }) => {
+  const map = useMap();
+
+  useEffect(() => {
+    if (!from || !to) return;
+
+    const routingControl = L.Routing.control({
+      waypoints: [L.latLng(from.lat, from.lng), L.latLng(to.lat, to.lng)],
+      createMarker: () => null,
+      routeWhileDragging: true,
+    }).addTo(map);
+
+    return () => {
+      map.removeControl(routingControl);
+    };
+  }, [from, to, map]);
+
+  return null;
+};
+
+const customMarkerIcon = new L.Icon({
+  iconUrl: `${process.env.PUBLIC_URL}/leaflet/marker-icon.png`,
+  shadowUrl: `${process.env.PUBLIC_URL}/leaflet/marker-shadow.png`,
+  iconSize: [32, 32],
+  iconAnchor: [16, 32],
+  popupAnchor: [0, -32],
+  shadowSize: [41, 41],
+});
+
+const CampusMap = () => {
+  const [location, setLocation] = useState(null);
+  const [selectedLocation, setSelectedLocation] = useState(null);
+  const [blockDetailsMap, setBlockDetailsMap] = useState({});
+
+  useEffect(() => {
+    // Fetch all block data once
+    const fetchAllBlockDetails = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/locations');
+        const map = {};
+        response.data.forEach(block => {
+          map[block.name] = block;
+        });
+        setBlockDetailsMap(map);
+      } catch (error) {
+        console.error('Error fetching block details:', error);
+      }
+    };
+
+    fetchAllBlockDetails();
+
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setLocation({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+      },
+      () => {
+        setLocation({ lat: pdeuCoords[0], lng: pdeuCoords[1] });
+      }
+    );
+  }, []);
+
+  const handleSelect = (e) => {
+    const loc = locations.find((l) => l.name === e.target.value);
+    if (loc) {
+      setSelectedLocation({ lat: loc.coords[0], lng: loc.coords[1] });
+    }
+  };
+
+  if (!location?.lat || !location?.lng) {
+    return <p>Loading map...</p>;
+  }
+
+  return (
+    <div>
+      <select onChange={handleSelect}>
+        <option value="">Select destination block</option>
+        {locations.map((l) => (
+          <option key={l.name} value={l.name}>{l.name}</option>
+        ))}
+      </select>
+
+      <MapContainer center={[location.lat, location.lng]} zoom={17} style={{ height: '100vh', width: '100%' }}>
+        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+
+        <Marker position={[location.lat, location.lng]} icon={customMarkerIcon}>
+          <Popup>You are here</Popup>
+        </Marker>
+
+        {locations.map((loc) => (
+          <MapMarker
+            key={loc.name}
+            location={{ lat: loc.coords[0], lng: loc.coords[1] }}
+            label={loc.name}
+            icon={customMarkerIcon}
+            details={blockDetailsMap[loc.name]}
+          />
+        ))}
+
+        {selectedLocation && <Routing from={location} to={selectedLocation} />}
+      </MapContainer>
+    </div>
+  );
+};
+
+export default CampusMap;

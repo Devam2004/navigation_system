@@ -1,0 +1,188 @@
+[
+  {
+    "name": "F Block",
+    "type": "Academic",
+    "description": "F Block with 6 floors, featuring labs, classrooms, faculty seating, and an engineering library at the top floor.",
+    "coords": {
+      "lat": 23.1565,
+      "lng": 72.6655
+    },
+    "features": [
+      "Labs",
+      "Classrooms",
+      "Faculty Seating",
+      "Engineering Library"
+    ],
+    "floors": [
+      {
+        "floor": 1,
+        "features": ["Labs", "Classrooms", "Faculty Seating"]
+      },
+      {
+        "floor": 2,
+        "features": ["Labs", "Classrooms", "Faculty Seating"]
+      },
+      {
+        "floor": 3,
+        "features": ["Labs", "Classrooms", "Faculty Seating"]
+      },
+      {
+        "floor": 4,
+        "features": ["Labs", "Classrooms", "Faculty Seating"]
+      },
+      {
+        "floor": 5,
+        "features": ["Labs", "Classrooms", "Faculty Seating"]
+      },
+      {
+        "floor": 6,
+        "features": ["Engineering Library"]
+      }
+    ],
+    "capacity": 1000,
+    "hasAC": true,
+    "accessible": true,
+    "openingHours": {
+      "mon-fri": "08:00-20:00",
+      "sat": "09:00-14:00",
+      "sun": "Closed"
+    }
+  },
+  {
+    "name": "E Block",
+    "type": "Academic",
+    "description": "E Block with 3 floors, featuring labs on the first two floors and classrooms on the top floor.",
+    "coords": {
+      "lat": 23.1560,
+      "lng": 72.6670
+    },
+    "features": [
+      "Labs",
+      "Classrooms"
+    ],
+    "floors": [
+      {
+        "floor": 1,
+        "features": ["Lab"]
+      },
+      {
+        "floor": 2,
+        "features": ["Lab"]
+      },
+      {
+        "floor": 3,
+        "features": ["Classrooms"]
+      }
+    ],
+    "capacity": 300,
+    "hasAC": true,
+    "accessible": true,
+    "openingHours": {
+      "mon-fri": "08:00-18:00",
+      "sat": "09:00-14:00",
+      "sun": "Closed"
+    }
+  },
+  {
+    "name": "D Block",
+    "type": "Academic",
+    "description": "D Block with 3 floors, featuring a BBA library on the top floor, classrooms on other floors, and a designing lab on the ground floor.",
+    "coords": {
+      "lat": 23.1555,
+      "lng": 72.6660
+    },
+    "features": [
+      "BBA Library",
+      "Classrooms",
+      "Designing Lab"
+    ],
+    "floors": [
+      {
+        "floor": 1,
+        "features": ["Designing Lab", "Classrooms"]
+      },
+      {
+        "floor": 2,
+        "features": ["Classrooms"]
+      },
+      {
+        "floor": 3,
+        "features": ["BBA Library"]
+      }
+    ],
+    "capacity": 500,
+    "hasAC": true,
+    "accessible": true,
+    "openingHours": {
+      "mon-fri": "08:00-18:00",
+      "sat": "09:00-14:00",
+      "sun": "Closed"
+    }
+  },
+  {
+    "name": "C Block",
+    "type": "Administration",
+    "description": "C Block with 3 floors, including a lab on the ground floor and classrooms on upper floors.",
+    "coords": {
+      "lat": 23.1550,
+      "lng": 72.6655
+    },
+    "features": [
+      "Labs",
+      "Classrooms"
+    ],
+    "floors": [
+      {
+        "floor": 1,
+        "features": ["Lab", "Classrooms"]
+      },
+      {
+        "floor": 2,
+        "features": ["Classrooms"]
+      },
+      {
+        "floor": 3,
+        "features": ["Classrooms"]
+      }
+    ],
+    "capacity": 200,
+    "hasAC": true,
+    "accessible": true,
+    "openingHours": {
+      "mon-fri": "08:00-17:00",
+      "sat": "09:00-13:00",
+      "sun": "Closed"
+    }
+  },
+  {
+    "name": "Mess",
+    "type": "Dining",
+    "description": "Mess with 2 floors offering meals for students and staff.",
+    "coords": {
+      "lat": 23.1545,
+      "lng": 72.6665
+    },
+    "features": [
+      "Canteen",
+      "Seating Area"
+    ],
+    "floors": [
+      {
+        "floor": 1,
+        "features": ["Canteen", "Seating Area"]
+      },
+      {
+        "floor": 2,
+        "features": ["Seating Area"]
+      }
+    ],
+    "capacity": 400,
+    "hasAC": true,
+    "accessible": true,
+    "openingHours": {
+      "mon-fri": "07:00-22:00",
+      "sat": "08:00-22:00",
+      "sun": "09:00-22:00"
+    }
+  }
+]
