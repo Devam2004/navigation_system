@@ -1,8 +1,10 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// App.js or your main routing file
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import CampusMap from './Components/CampusMap';
-import BlockDetailsPage from './Components/BlockDetailsPage'; 
+import BlockDetailsPage from './Components/BlockDetailsPage';
 
-function App() {
+const App = () => {
   return (
     <Router>
       <Routes>
@@ -11,6 +13,6 @@ function App() {
       </Routes>
     </Router>
   );
-}
+};
 
 export default App;

@@ -4,8 +4,8 @@
     "type": "Academic",
     "description": "F Block with 6 floors, featuring labs, classrooms, faculty seating, and an engineering library at the top floor.",
     "coords": {
-      "lat": 23.1565,
-      "lng": 72.6655
+      "lat": 23.15555459881238,
+      "lng": 72.66352980335378
     },
     "features": [
       "Labs",
@@ -53,8 +53,8 @@
     "type": "Academic",
     "description": "E Block with 3 floors, featuring labs on the first two floors and classrooms on the top floor.",
     "coords": {
-      "lat": 23.1560,
-      "lng": 72.6670
+      "lat": 23.155484090902153,
+      "lng":  72.66443198731419
     },
     "features": [
       "Labs",
@@ -88,8 +88,8 @@
     "type": "Academic",
     "description": "D Block with 3 floors, featuring a BBA library on the top floor, classrooms on other floors, and a designing lab on the ground floor.",
     "coords": {
-      "lat": 23.1555,
-      "lng": 72.6660
+      "lat": 23.155451201666224, 
+      "lng": 72.66561961674674
     },
     "features": [
       "BBA Library",
@@ -124,8 +124,8 @@
     "type": "Administration",
     "description": "C Block with 3 floors, including a lab on the ground floor and classrooms on upper floors.",
     "coords": {
-      "lat": 23.1550,
-      "lng": 72.6655
+      "lat": 23.154732918877396,
+      "lng":  72.66687090740923
     },
     "features": [
       "Labs",
@@ -159,8 +159,8 @@
     "type": "Dining",
     "description": "Mess with 2 floors offering meals for students and staff.",
     "coords": {
-      "lat": 23.1545,
-      "lng": 72.6665
+      "lat": 23.15710418558723,
+      "lng":  72.6660361248536
     },
     "features": [
       "Canteen",

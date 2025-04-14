@@ -1,3 +1,4 @@
+// CampusMap.js
 import React, { useState, useEffect } from 'react';
 import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -5,7 +6,7 @@ import L from 'leaflet';
 import 'leaflet-routing-machine';
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import axios from 'axios';
-import MapMarker from './MapMarker';
+import { useNavigate } from 'react-router-dom';
 
 const locations = [
   { name: 'E Block', coords: [23.155484090902153, 72.66443198731419] },
@@ -52,9 +53,9 @@ const CampusMap = () => {
   const [location, setLocation] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [blockDetailsMap, setBlockDetailsMap] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch all block data once
     const fetchAllBlockDetails = async () => {
       try {
         const response = await axios.get('http://localhost:5000/api/locations');
@@ -87,6 +88,10 @@ const CampusMap = () => {
     }
   };
 
+  const handleMarkerClick = (blockName) => {
+    navigate(`/block-details/${encodeURIComponent(blockName)}`);
+  };
+
   if (!location?.lat || !location?.lng) {
     return <p>Loading map...</p>;
   }
@@ -108,13 +113,16 @@ const CampusMap = () => {
         </Marker>
 
         {locations.map((loc) => (
-          <MapMarker
+          <Marker
             key={loc.name}
-            location={{ lat: loc.coords[0], lng: loc.coords[1] }}
-            label={loc.name}
+            position={loc.coords}
             icon={customMarkerIcon}
-            details={blockDetailsMap[loc.name]}
-          />
+            eventHandlers={{
+              click: () => handleMarkerClick(loc.name)
+            }}
+          >
+            <Popup>{loc.name}</Popup>
+          </Marker>
         ))}
 
         {selectedLocation && <Routing from={location} to={selectedLocation} />}

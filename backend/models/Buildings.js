@@ -1,15 +1,18 @@
 // models/Buildings.js
 const mongoose = require('mongoose');
 
-const buildingSchema = new mongoose.Schema({
+const BuildingSchema = new mongoose.Schema({
   name: String,
-  coords: {
-    lat: Number,
-    lng: Number,
-  },
-  floors: Number,
-  departments: [String],
-  facilities: [String],
+  type: String,
+  description: String,
+  coords: Object,
+  features: [String],
+  floors: [String],
+  capacity: Number,
+  hasAC: Boolean,
+  accessible: Boolean,
+  openingHours: Object
 });
 
-module.exports = mongoose.model('Building', buildingSchema);
+// Explicitly tell it to use 'locations' collection
+module.exports = mongoose.model('Building', BuildingSchema, 'locations');

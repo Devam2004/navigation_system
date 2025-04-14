@@ -1,28 +1,26 @@
+// models/Location.js
+
 import mongoose from 'mongoose';
 
 const locationSchema = new mongoose.Schema({
   name: String,
   type: String,
   description: String,
-  coords: {
-    lat: Number,
-    lng: Number
-  },
-  features: [String],
-  floors: [
-    {
-      floor: Number,
-      features: [String]
-    }
-  ],
+  floors: [String],
   capacity: Number,
   hasAC: Boolean,
   accessible: Boolean,
+  features: [String],
   openingHours: {
-    'mon-fri': String,
-    sat: String,
-    sun: String
-  }
+    type: Map,
+    of: String,
+  },
+  coordinates: {
+    type: [Number], 
+    index: '2dsphere',
+  },
 });
 
-export default mongoose.model('Location', locationSchema, 'locations'); // Explicit collection name
+const Location = mongoose.model('Location', locationSchema);
+
+export default Location;
