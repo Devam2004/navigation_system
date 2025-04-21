@@ -1,12 +1,11 @@
 import L from 'leaflet';
 
-const customIcon = (type = '') => {
-  let iconUrl = '/leaflet/marker-block.png'; // Default icon for academic blocks
+const getIconByType = (type) => {
+  let iconUrl = '/leaflet/marker-block.png'; // default
 
-  const lowerType = type.toLowerCase();
-  if (lowerType.includes('mess')) {
+  if (type.toLowerCase().includes('mess')) {
     iconUrl = '/leaflet/marker-mess.png';
-  } else if (lowerType.includes('library')) {
+  } else if (type.toLowerCase().includes('library')) {
     iconUrl = '/leaflet/marker-library.png';
   }
 
@@ -21,4 +20,4 @@ const customIcon = (type = '') => {
   });
 };
 
-export default customIcon;
+export default getIconByType;

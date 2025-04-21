@@ -1,5 +1,5 @@
 // models/Buildings.js
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const BuildingSchema = new mongoose.Schema({
   name: String,

@@ -1,14 +1,16 @@
 import React from 'react';
 import { Marker, Popup } from 'react-leaflet';
+import getIconByType from '../utils/getIconByType';
 
-const MapMarker = ({ location, label, icon, onClick }) => {
+const MapMarker = ({ location }) => {
+  const { name, type, coords } = location;
+
   return (
-    <Marker
-      position={[location.lat, location.lng]}
-      icon={icon}
-      eventHandlers={{ click: onClick }}
-    >
-      <Popup>{label}</Popup>
+    <Marker position={[coords.lat, coords.lng]} icon={getIconByType(type)}>
+      <Popup>
+        <strong>{name}</strong><br />
+        Type: {type}
+      </Popup>
     </Marker>
   );
 };

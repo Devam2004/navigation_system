@@ -1,4 +1,3 @@
-// CampusMap.js
 import React, { useState, useEffect } from 'react';
 import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -40,7 +39,29 @@ const Routing = ({ from, to }) => {
   return null;
 };
 
-const customMarkerIcon = new L.Icon({
+// Dynamic icon generator based on type
+const getCustomIcon = (type = '') => {
+  let iconUrl = `${process.env.PUBLIC_URL}/leaflet/marker-block.png`;
+  const lowerType = type.toLowerCase();
+
+  if (lowerType.includes('mess')) {
+    iconUrl = `${process.env.PUBLIC_URL}/leaflet/marker-mess.png`;
+  } else if (lowerType.includes('library')) {
+    iconUrl = `${process.env.PUBLIC_URL}/leaflet/marker-library.png`;
+  }
+
+  return new L.Icon({
+    iconUrl,
+    iconSize: [35, 45],
+    iconAnchor: [17, 45],
+    popupAnchor: [0, -40],
+    shadowUrl: `${process.env.PUBLIC_URL}/leaflet/marker-shadow.png`,
+    shadowSize: [41, 41],
+  });
+};
+
+// Default user location marker
+const userIcon = new L.Icon({
   iconUrl: `${process.env.PUBLIC_URL}/leaflet/marker-icon.png`,
   shadowUrl: `${process.env.PUBLIC_URL}/leaflet/marker-shadow.png`,
   iconSize: [32, 32],
@@ -98,7 +119,7 @@ const CampusMap = () => {
 
   return (
     <div>
-      <select onChange={handleSelect}>
+      <select onChange={handleSelect} style={{ margin: '10px', padding: '6px', borderRadius: '6px' }}>
         <option value="">Select destination block</option>
         {locations.map((l) => (
           <option key={l.name} value={l.name}>{l.name}</option>
@@ -108,22 +129,26 @@ const CampusMap = () => {
       <MapContainer center={[location.lat, location.lng]} zoom={17} style={{ height: '100vh', width: '100%' }}>
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-        <Marker position={[location.lat, location.lng]} icon={customMarkerIcon}>
+        <Marker position={[location.lat, location.lng]} icon={userIcon}>
           <Popup>You are here</Popup>
         </Marker>
 
-        {locations.map((loc) => (
-          <Marker
-            key={loc.name}
-            position={loc.coords}
-            icon={customMarkerIcon}
-            eventHandlers={{
-              click: () => handleMarkerClick(loc.name)
-            }}
-          >
-            <Popup>{loc.name}</Popup>
-          </Marker>
-        ))}
+        {locations.map((loc) => {
+          const type = blockDetailsMap[loc.name]?.type || 'Academic'; // fallback if type not loaded
+          return (
+            <Marker
+              key={loc.name}
+              position={loc.coords}
+              icon={getCustomIcon(type)}
+              eventHandlers={{ click: () => handleMarkerClick(loc.name) }}
+            >
+              <Popup>
+                <strong>{loc.name}</strong><br />
+                {type}
+              </Popup>
+            </Marker>
+          );
+        })}
 
         {selectedLocation && <Routing from={location} to={selectedLocation} />}
       </MapContainer>

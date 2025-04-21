@@ -1,6 +1,6 @@
 import express from 'express';
 const router = express.Router();
-import Location from '../models/Location.js'; // 🔴 Make sure this import exists and is correct
+import Location from '../models/Location.js'; 
 
 // GET all locations
 router.get('/', async (req, res) => {

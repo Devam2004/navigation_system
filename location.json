@@ -121,7 +121,7 @@
   },
   {
     "name": "C Block",
-    "type": "Administration",
+    "type": "library",
     "description": "C Block with 3 floors, including a lab on the ground floor and classrooms on upper floors.",
     "coords": {
       "lat": 23.154732918877396,
@@ -156,7 +156,7 @@
   },
   {
     "name": "Mess",
-    "type": "Dining",
+    "type": "mess",
     "description": "Mess with 2 floors offering meals for students and staff.",
     "coords": {
       "lat": 23.15710418558723,
